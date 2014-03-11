@@ -1,0 +1,53 @@
+= Getting started with CapeDwarf in three easy steps
+:awestruct-layout: project
+:awestruct-project: capedwarf
+:toc:
+:toc-placement: preamble
+:page-interpolate: true
+:latest_stable: #{latest_stable_release(page).version}
+
+
+
+This is a short guide on how to install CapeDwarf and run your existing App Engine application on it. For more in-depth
+documentation on configuring and using CapeDwarf, refer to the link:/documentation/user-guide/[User Guide].
+
+
+== Step 1: Download and unzip CapeDwarf
+
+To download CapeDwarf, go to link:/downloads[Downloads]. Currently, you may choose to download _CapeDwarf on JBossAS7 (CapeDwarf version 1.x)_
+or on the newer _WildFly Application Server (CapeDwarf version 2.x)_. Unzip the downloaded zip file to a location of your
+choosing (in order to avoid bugs it’s always good practice to install into a directory path that does not include spaces or
+special characters).
+
+Let's refer to the folder you unziped CapeDwarf into as +%CAPEDWARF_HOME%+.
+
+
+== Step 2: Run your existing app on CapeDwarf
+
+Assuming you already have an existing GAE application, you probably have the whole application in a directory somewhere on your
+hard drive. The easiest way of deploying the app is by running +%CAPEDWARF_HOME%/bin/capedwarf.sh <location of app>+.
+
+Let's say your application is located at +/home/me/my_gae_app/war/+ and you've installed CapeDwarf into +/home/me/capedwarf/+,
+you run the app on CapeDwarf with the following command:
+
+----
+/home/me/capedwarf/bin/capedwarf.sh /home/me/my_gae_app/war
+----
+
+CapeDwarf should start up and print a bunch of lines to the console. The last line should look something like this:
+
+----
+13:50:38,085 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss Capedwarf 2.0.0.Beta1 (WildFly 8.0.0.Final) started in 3885ms - Started 213 of 525 services (350 services are lazy, passive or on-demand)
+----
+
+
+== Step 3: Navigate to the app in your browser
+
+Your app is now deployed and should be available at http://localhost:8080. The admin console is available at
+http://localhost:8080/_ah/admin - same as on Google App Engine.
+
+Certain GAE service APIs, like the Mail Service API, XMPP Service API, need to be manually configured in order to function properly
+on CapeDwarf. Please refer to the link:/documentation/user-guide/[User Guide] for more information.
+
+
+

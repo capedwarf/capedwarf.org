@@ -1,0 +1,25 @@
+---
+layout: project
+title: CapeDwarf Blog
+---
+.row-fluid
+  .span8
+    - for post in page.blogposts
+      .row-fluid
+        .span12.well.post-bg
+          = partial('post.html.haml', {"post" => post})
+    .pagination.no-bottom-margin
+      %ul
+        %li{:class=>('disabled' unless page.blogposts.previous_page)}
+          %a{:href=>page.blogposts.previous_page ? "#{site.base_url}#{page.blogposts.previous_page.url}" : '#'} &laquo; Newer
+        %li
+          %a(href="#")<= "Page " + (page.blogposts.current_page_index + 1).to_s + " of " + page.blogposts.pages.size.to_s
+        %li{:class=>('disabled' unless page.blogposts.next_page)}
+          %a{:href=>page.blogposts.next_page ? "#{site.base_url}#{page.blogposts.next_page.url}" : '#'} Older &raquo;
+  .span4
+    .row-fluid
+      = partial('latest-blogs-sidebar.html.haml')
+    .row-fluid
+      .span12.well.post-bg
+        %h2 All Tags
+        = site.blogposts_tag_cloud

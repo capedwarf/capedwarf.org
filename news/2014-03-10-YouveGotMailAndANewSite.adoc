@@ -1,0 +1,26 @@
+= You’ve got mail and a new site!
+alesj
+2014-03-10
+:revdate: 2014-03-10 13:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+As the title - taken from a cheesy romantic movie :-) - says, we now finally have proper mail API support on CapeDwarf.
+
+We also moved our http://www.capedwarf.org[capedwarf.org] site to Awestruct and Asciidoctor, plus adding a bunch of content to it -- faq, docs, blogs, …
+
+CapeDwarf now uses WildFly 8.0.0.Final underneath, which fixed some of the deployment’ concurrency handling issues.
+
+The full release notes can be found here:
+
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12318737[2.0.0.CR1 release notes]
+
+Download the full .zip distribution:
+
+ - http://downloads.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR1.zip[CapeDwarf_WildFly_2.0.0.CR1.zip]
+
+Feedback welcome!
+
+
+

@@ -1,0 +1,33 @@
+= Busy busy busy - new 1.0.0.Beta3 CapeDwarf release finally out!
+alesj
+2013-03-12
+:revdate: 2013-03-12 16:23:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+Download it here:
+
+- http://downloads.jboss.org/capedwarf/CapeDwarf_AS7_1.0.0.Beta3.zip
+
+As you can see from the JIRA release notes, it’s been super busy 2 months.
+
+- https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12320952
+
+Another new sub-project: CapeDwarf Shared.
+
+- https://github.com/capedwarf/capedwarf-shared
+
+It’s where we keep the shared code between our GAE API implementation (Blue) and JBossAS integration.
+
+There has been a lot of detail polishing on Blobstore, Logging and TaskQueue.
+And we also added BlackList / WhiteList support, getting even closer to GAE behavior this way.
+
+Also big thanks to https://github.com/bartv[Bart] and http://distrinet.cs.kuleuven.be/people/showMember.do?memberID=u0059687[Wouter] for the patches and feedback.
+
+And yes, we finally simplified how you start the whole thing - thanks https://github.com/matejonnet[Lazo]. 
+
+- ./capedwarf.sh or capedwarf.bat (in JBOSS\_HOME/bin/) will do
+
+As always, feedback welcome!
+

@@ -1,0 +1,37 @@
+= CapeDwarf 1.0.0.Beta4 is out!
+alesj
+2013-04-22
+:revdate: 2013-04-22 12:41:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+Continuing with our monthly releases, we’re happy to announce new 1.0.0.Beta4 release.
+
+- http://downloads.jboss.org/capedwarf/CapeDwarf_AS7_1.0.0.Beta4.zip
+
+https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12321455[Quick rundown of release notes]
+
+- all logging data was moved into separate cache,
+
+- enabled metadata handling,
+
+- default cache is now “SYNC” by default (which made https://code.google.com/p/appengine-mapreduce/[MapReduce] tests very happy :-)),
+
+- we put back legacy factory transformers - which means older GAE API versions now again work to some extent,
+
+- Velocity is jarjar-ed - so it doesn’t conflict with your version anymore,
+
+- we support static files handling - you don’t hit your filters and listeners anymore,
+
+- datastore queries now run sync as well, cluster wide - thanks https://github.com/Sanne[Sanne], https://github.com/danberindei[Dan] and http://infinispan.org[Infinispan co.],
+
+- and a bunch of other small tweaks.
+
+https://developers.google.com/events/io/[Google I/O 2013]
+
+CapeDwarf team will be at this year’s Google I/O’ Sandbox!
+Make sure you drop by for a chat, demo and a nice T-shirt.
+
+Also be careful you don’t miss the exciting surprise announcement! 
+

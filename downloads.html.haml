@@ -1,17 +1,40 @@
 ---
 layout: rightcol
 rightcol_partial: rightcol-downloads.html.haml
-title: Downloads
+description: List of releases available for download 
 ---
+%h2 Downloads
+%table.table.table-bordered.table-striped.white-stripes
+  %thead
+    %th Version
+    %th Date
+    %th Description
+    %th License
+    %th Size
+    %th Format
+  %tbody
+    - for release in site.releases
+      %tr
+        %td #{release[:version]}
+        %td #{release[:date]}
+        %td #{release[:description]}
+        %td LGPL
+        %td.download-size #{release[:zip][:size]} 
+        %td
+          %a{:href=>release[:zip][:url]} 
+            %i.icon-download-alt
+            ZIP
+      %tr
+        %td 
+        %td 
+        %td Release Notes
+        %td  
+        %td
+        %td
+          %a{:href=>release[:notes]} 
+            %i.icon-pencil 
+              Notes
+      %tr
+        - for i in 0..5
+          %td &nbsp;
 
-
-/ Main hero unit for a primary marketing message or call to action
-.row-fluid
-  %h1 Project Name Downloads
-  %p Latest Releaase 5.6.0
-  %p<
-    %a.btn.btn-primary.btn-large(href="swatch.html") View the Swatches &raquo;
-
-  %hr
-
-/ Example Content

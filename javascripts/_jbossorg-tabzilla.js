@@ -344,23 +344,23 @@ Tabzilla.preventDefault = function(ev)
 Tabzilla.content =
 '<div class="tabnavclearfix" id="tabnav">'
 +'<div class="tabcontent">'
-+'  <p class="overview"> Like the project? It’s part of the community of Red Hat projects. Learn more about Red Hat and our open source communities:</p>'
++'  <p class="overview"> Like CapeDwarf? It’s part of the community of Red Hat projects. Learn more about Red Hat and our open source communities:</p>'
 +'  <div class="row-fluid">'
 +'    <span class="span4 middlewarelogo">'
 +'      <img src="http://static.jboss.org/common/images/tabzilla/RHJB_Middleware_Logotype.png" alt="Red Hat JBoss MIDDLEWARE" />'
 +'    </span>'
 +'    <span class="span4">'
 +'      <ul class="level1">'
-+'        <li class="leaf"><a href="#">Red Hat JBoss Middleware Overview</a></li>'
-+'        <li class="leaf"><a href="#">Red Hat JBoss Middleware Products</a></li>'
-+'        <li class="leaf"><a href="#">Red Hat JBoss Projects & Standards</a></li>'
++'        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/">Red Hat JBoss Middleware Overview</a></li>'
++'        <li class="leaf"><a href="http://www.redhat.com/products/jbossenterprisemiddleware/">Red Hat JBoss Middleware Products</a></li>'
++'        <li class="leaf"><a href="http://www.jboss.org/projects">Red Hat JBoss Projects & Standards</a></li>'
 +'      </ul>'
 +'    </span>'
 +'    <span class="span4">'
 +'      <ul class="level1">'
-+'        <li class="leaf"><a href="#">redhat.com</a></li>'
-+'        <li class="leaf"><a href="#">Red Hat Customer Portal</a></li>'
-+'        <li class="leaf"><a href="#">OpenShift</a></li>'
++'        <li class="leaf"><a href="http://redhat.com">redhat.com</a></li>'
++'        <li class="leaf"><a href="http://access.redhat.com">Red Hat Customer Portal</a></li>'
++'        <li class="leaf"><a href="http://www.openshift.com">OpenShift</a></li>'
 +'      </ul>'
 +'    </span>'
 +'  </div>'
@@ -545,104 +545,3 @@ var initializeSearchBar = function() {
 
 // Tabzilla initialization
 Tabzilla();
-
-// =======================================
-// Content dynamic rendering for tabzilla.
-// =======================================
-
-// Function checks LocalStorage if there is cached content, validates its age
-// and optionally downloads again from the REST service and then caches it.
-function renderTabzilla( projectName , projectId ) {
-
-  if ( ( typeof projectName=='undefined' ) || ( typeof projectId=='undefined' ) ) {
-    console.error("Variables 'project' and 'project_name' have to be provided in your site.yml configuration file.");
-    return;
-  }
-
-  var valueFromCache = null;
-  if (window.localStorage && window.localStorage.getItem(projectId+"TabzillaCache") ) {
-
-    var temp = JSON.parse(window.localStorage.getItem(projectId+"TabzillaCache"));
-
-    // Checking if the item in cache is not older than a week
-    if ( new Date() - new Date(Date.parse(temp.cachedDate)) < (1000*60*60*24*7) ) {
-      valueFromCache = temp;
-    }
-
-  }
-
-  // If nothing was found in cache then we gather all the data from scratch.
-  if (valueFromCache==null) {
-
-    /* THIS PART OF CODE IS TEMPORARILY DISABLED TILL THE SERVICE WILL BE IN PRODUCTION.  
-    // Getting information in what products the project is supported in.
-    var data = $.ajax({url:"http://rysiek.apiary.io/v1/rest/products/supported/#{site.project_name}",
-      dataType:'json'
-    });
-    */
-
-    // Getting HTML tab content from remote source.
-    var wrapper = $.ajax({url:"http://static.jboss.org/partials/tabcontent.html",
-      dataType:'html'
-    });
-
-    /* THIS PART OF CODE IS TEMPORARILY DISABLED TILL THE SERVICE WILL BE IN PRODUCTION.
-    // When both results are available we continue with actual rendering of the data.
-    $.when( data , wrapper ).then( function( dataResult , wrapperResult ) {
-
-      var data = dataResult[0];
-      var content = wrapperResult[0];
-      */
-
-      // REPLACEMENT CODE
-    $.when( wrapper ).then( function(wrapperResult ) {
-      var data = undefined;
-      var content = wrapperResult;
-      // END OF REPLACEMENT CODE
-      
-      var htmlContent;
-
-      // Depending on whether the project is supported in any product or not,
-      // we render different html entry.
-      if (typeof data!='undefined' && data.total>0) {
-
-        htmlContent = $(content).find('#supported');
-        htmlContent.find("#project_name").html(projectName);
-        var firstUl = htmlContent.find("#products-first-column");
-        var secondUl = htmlContent.find("#products-second-column");
-
-        var firstColumnSize = Math.ceil(data.total/2);
-        $.each(data.hits , function(index, value) {
-          if (index<firstColumnSize) {
-            firstUl.html(firstUl.html()+'<li class="leaf"><a href="'+value.url+'">'+value.name+'</a></li>');
-          } else {
-            secondUl.html(secondUl.html()+'<li class="leaf"><a href="'+value.url+'">'+value.name+'</a></li>');
-          }
-        });
-
-        $(".tabcontent").html(htmlContent);
-
-      } else {
-
-        htmlContent = $(content).find("#nonsupported");
-        htmlContent.find("#project_name").html(projectName);
-        $(".tabcontent").html(htmlContent);
-
-      }
-
-      // Putting the whole generated HTML into LocalStorage.
-      if (window.localStorage && htmlContent) {
-        var entry = new Object();
-        entry.cachedDate = new Date();
-        entry.htmlContent = htmlContent.html();
-        window.localStorage.setItem(projectId+"TabzillaCache",JSON.stringify(entry));
-      }
-
-    });
-
-  } else {
-
-    $(".tabcontent").html(valueFromCache.htmlContent);
-
-  }
-}

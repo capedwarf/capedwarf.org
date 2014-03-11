@@ -4,37 +4,53 @@
       %h4 Navigate
       %ul
         %li
-          %a{:href => "#", :title => "Learn"} Learn
+          %a{:href => "#{site.base_url}/about/", :title => "About"} About
         %li
-          %a{:href => "#", :title => "Get Started"} Get Started
+          %a{:href => "#{site.base_url}/gethelp/", :title => "Get Help"} Get Help
         %li
-          %a{:href => "#", :title => "Forums"} Forums
+          %a{:href => "https://community.jboss.org/en/capedwarf?view=discussion", :title => "Forums"} Forums
         %li
-          %a{:href => "#", :title => "Get Involved"} Get Involved
-        %li
-          %a{:href => "#", :title => "Download"} Download
+          %a{:href => "#{site.base_url}/downloads/", :title => "Download"} Download
     .span2
       %h4 Follow Us
       %ul
         %li
-          %a{:href => "#", :title => "Blog"} Blog
+          %a{:href => "#{site.base_url}/news/", :title => "News"} News
+          %a{:href => "#{site.base_url}/news.atom", :title => "Atom"} (Atom Feed)
         %li
-          %a{:href => "#", :title => "Twitter"} Twitter
+          %a{:href => "https://twitter.com/search?q=%23capedwarf", :title => "Twitter"} Twitter
         %li
-          %a{:href => "#", :title => "Google+"} Google+
+          %a{:href => "https://plus.google.com/communities/105087865153736312459", :title => "Google+"} Google+
     .span2
       %h4 Contribute
       %ul
         %li
-          %a{:href => "#", :title => "Submit a bug"} Submit a bug
+          %a{:href => "https://issues.jboss.org/browse/CAPEDWARF", :title => "Submit a bug"} Submit a bug
         %li
-          %a{:href => "#", :title => "Write code"} Write Code
-        %li
-          %a{:href => "#", :title => "Join the team"} Join the team
+          %a{:href => "https://github.com/capedwarf", :title => "Fork"} Fork The Code
     .span3.offset1
       %h4 LGPL 2.1 License
       %p All dependencies of this project are available under the LGPL or a compatible license.
-      %p
+  .row-fluid
+    .span6.offset1
+      %p{:style => "margin-top: 5px; font-size: 80%;"}
+        © Copyright 2013 Red Hat, Inc.
+        %br
+        %i.icon-fire
+        Made with
+        %a{:href => "https://github.com/jbossorg/bootstrap-community", :style=>"text-decoration: underline;"}JBoss Community Bootstrap
+        and
+        %a{:href => "http://awestruct.org/", :style=>"text-decoration: underline;"}Awestruct
+        %br
+        %i.icon-globe
+        This website is open source! If you want to improve it,
+        %a{:href => "http://github.com/capedwarf/capedwarf.org", :style=>"text-decoration: underline;"}fork the project,
+        and send a pull request.
+        %br
+        %i.icon-share
+        Website released under
+        %a{:href => "http://creativecommons.org/licenses/by/3.0/", :style=>"text-decoration: underline;"}CC BY 3.0.
+    .span3.offset1
       .jbossbadge
         %a{:href => "http://www.jboss.org/"}
-          %img{:src => "/cache/static.jboss.org/theme/images/common/jbossbadge.png"}/
+          %img{:src => "http://static.jboss.org/theme/images/common/jbossbadge.png"}/

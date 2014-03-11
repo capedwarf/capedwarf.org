@@ -1,0 +1,25 @@
+---
+layout: project
+title: Source Code
+---
+
+.row-fluid
+  .row-fluid
+    %p
+      CapeDwarf is open-sourced. The complete source code is available on
+      %a{:href=>"https://github.com/capedwarf"}GitHub.
+      The project is split into several sub-projects:
+
+    %ul
+      %li
+        %a{:href=>"https://github.com/capedwarf/capedwarf-blue"}capedwarf-blue
+        %p Contains the actual implementation of the Google App Engine APIs
+      %li
+        %a{:href=>"https://github.com/capedwarf/capedwarf-shared"}capedwarf-shared
+        %p Contains the common classes and interfaces shared by capedwarf-blue and capedwarf-jboss-as
+      %li
+        %a{:href=>"https://github.com/capedwarf/capedwarf-jboss-as"}capedwarf-jboss-as
+        %p Contains all the code needed to integrate CapeDwarf Blue with WildFly Application Server.
+
+    %p
+      To contribute to the project, fork the repositories listed above, commit your changes and submit a pull request. After reviewing your changes,

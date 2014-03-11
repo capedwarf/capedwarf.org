@@ -24,6 +24,7 @@
 #
 ##
 require 'rbconfig'
+#require 'fileutils'
 
 module Awestruct
   module Extensions
@@ -53,6 +54,9 @@ module Awestruct
             print "Symbolic link from #{from} to #{to} has been created.\n"
           rescue
             print "Symbolic link could not be created due to an unsupported OS.\n"
+          rescue NotImplementedError
+            print "Symbolic link could not be created due to an unsupported OS.\n"
+            #FileUtils.cp(from, to)
           end
         end
 
