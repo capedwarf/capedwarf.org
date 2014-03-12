@@ -1,11 +1,8 @@
 # Default page title
-title: JBoss Community
+title: CapeDwarf
 
 # Project id name
-project: example
-
-# Project full name
-project_name: Example
+project: capedwarf
 
 # Default minify settings
 css_minifier: disabled
@@ -31,8 +28,7 @@ fileMerger:
     - /javascripts/_bootstrap-typeahead.js
     - /javascripts/_bootstrap-affix.js
     - /javascripts/_jbossorg-navbarfix.js
-    - /javascripts/_jbossorg-FeedEk.js
-    - /javascripts/_jbossorg-jiraWidget.js
+    - /javascripts/_jbossorg-misc.js
     - /javascripts/_jquery-easytabs.js
     - /javascripts/_crisp-scripts.js
     - /javascripts/_jbossorg-tabzilla.js
@@ -61,6 +57,23 @@ wget:
     - http://static.jboss.org/theme/fonts/font-awesome/
     - http://static.jboss.org/theme/images/common/
     - http://static.jboss.org/example/
+    - http://www.jboss.org/dms/capedwarf/images/capedwarf-banner-1180px.png
+
+
+####################################################################################################
+# Asciidoctor config
+####################################################################################################
+asciidoctor:
+  :safe: safe
+  :attributes:
+    #sitename: WriteAdapt
+    idprefix: ''
+    idseparator: '-'
+    sectanchors: ''
+    toclevels: 3
+    icons: font
+    source-highlighter: coderay
+    coderay-css: style
 
 # Update resource URLs based on the profile
 profiles:
@@ -68,24 +81,30 @@ profiles:
     jborg_fonts_url: /cache/static.jboss.org/theme/fonts
     jborg_images_url: /cache/static.jboss.org/theme/images
     jborg_js_url: /cache/static.jboss.org/theme/js
-    project_images_url: /cache/static.jboss.org/example/images
+    project_images_url: /cache/www.jboss.org/dms/capedwarf/images
     bootstrap_css_url: /stylesheets-source/_bootstrap-community
     bootstrap_js_url: /javascripts/bootstrap-community
     symlinker:
       from: ../stylesheets
       to: ./_site/stylesheets-source
+    asciidoctor:
+      :attributes:
+        base_url: http://localhost:4242
+        imagesdir: /images
   staging:
     jborg_fonts_url: http://static.jboss.org/theme/fonts
     jborg_images_url: http://static.jboss.org/theme/images
     jborg_js_url: http://static.jboss.org/theme/js
-    project_images_url: http://static.jboss.org/example/images
-    bootstrap_css_url: http://static.jboss.org/theme/css/bootstrap-community/2.3.1.4/bootstrap-community
-    bootstrap_js_url: http://static.jboss.org/theme/js/libs/bootstrap-community/2.3.1.4/bootstrap-community
-    base_url: http://example-stg.jboss.org
+    project_images_url: http://www.jboss.org/dms/capedwarf/images/
+    bootstrap_css_url: http://static.jboss.org/theme/css/bootstrap-community/2.3.1.1/bootstrap-community
+    bootstrap_js_url: http://static.jboss.org/capedwarf/scripts/bootstrap-community
+    base_url: http://capedwarf.org/staging
     wget:
       enabled: false
-    # Uncomment the line below and provide a valid Google Analytics ID to enable tracking of your site in this profile.
-    # google_analytics: UA-00000000-0
+    asciidoctor:
+      :attributes:
+        base_url: http://capedwarf.org/staging
+        imagesdir: /staging/images
   production:
     minified: .min
     css_minifier: enabled
@@ -94,11 +113,13 @@ profiles:
     jborg_fonts_url: http://static.jboss.org/theme/fonts
     jborg_images_url: http://static.jboss.org/theme/images
     jborg_js_url: http://static.jboss.org/theme/js
-    project_images_url: http://static.jboss.org/example/images
-    bootstrap_css_url: http://static.jboss.org/theme/css/bootstrap-community/2.3.1.4/bootstrap-community
-    bootstrap_js_url: http://static.jboss.org/theme/js/libs/bootstrap-community/2.3.1.4/bootstrap-community
-    base_url: http://example.jboss.org
+    project_images_url: http://www.jboss.org/dms/capedwarf/images/
+    bootstrap_css_url: http://static.jboss.org/theme/css/bootstrap-community/2.3.1.1/bootstrap-community
+    bootstrap_js_url: http://static.jboss.org/capedwarf/scripts/bootstrap-community
+    base_url: http://capedwarf.org
     wget:
       enabled: false
-    # Uncomment the line below and provide a valid Google Analytics ID to enable tracking of your site in this profile.
-    # google_analytics: UA-00000000-0
+    asciidoctor:
+      :attributes:
+        base_url: http://capedwarf.org
+        imagesdir: /images

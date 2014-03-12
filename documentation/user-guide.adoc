@@ -1,0 +1,289 @@
+= CapeDwarf User Guide
+Marko Lukša
+:awestruct-layout: project
+:awestruct-project: capedwarf
+:toc:
+:toc-placement: preamble
+:page-interpolate: true
+:numbered:
+:latest_stable: #{latest_stable_release(page).version}
+
+
+This is an in-depth guide on how to configure and use pre-compiled versions of CapeDwarf. If, for any reason, you need to build
+CapeDwarf from scratch, please refer to the project's https://github.com/capedwarf/capedwarf-blue/README.md[README on GitHub].
+
+
+== Running CapeDwarf
+
+For information on how to download and install CapeDwarf, please refer to the link:/documentation/getting-started[Getting Started Guide].
+Once installed, there are several ways to run CapeDwarf:
+
+* *Running +capedwarf.sh <path to app>+*
++
+CapeDwarf will deploy the application located at +<path to app>+ under the ROOT servlet context, just like GAE development server.
+
+* *Running +capedwarf.sh+ without specifying the path to the application and then copying the application's war file into +%CAPEDWARF_HOME%/standalone/deployments/+.*
++
+To deploy the app to the root servlet context, the name of the war should be +ROOT.war+. Unlike GAE, you can also deploy your
+app under any servlet context you like. You can even deploy more than one app on the same server (each under its own context).
++
+You can deploy your apps in either compressed war files or in exploded war directories. When deploying your app in an exploded
+directory, the directory name must include a +.war+ extension and you must add a +myapp.war.dodeploy' file, where +myapp.war+
+matches the name of the directory your app is located in.
+
+* *Running +standalone.sh -c capedwarf-standalone.conf+*
++
+This is basically the same as running +capedwarf.sh+, but with one _significant caveat_. See <<faq/bytecode>> for details.
+
+* *Running +standalone.sh -c capedwarf-standalone-modules.conf+*
++
+This runs CapeDwarf with App Engine modules support enabled.
+
+
+CapeDwarf can be run on a single node or on many nodes in a cluster.
+
+=== Running in standalone mode
+
+Once unzipped into +%CAPEDWARF_HOME%+, you can run CapeDwarf by simply running +%CAPEDWARF_HOME%/bin/capedwarf.sh+ or +capedwarf.bat+. The last line of the console output should look something like this:
+
+----
+13:50:38,085 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss Capedwarf 2.0.0.Beta2 (WildFly 8.0.0.Final-SNAPSHOT)
+started in 3885ms - Started 213 of 525 services (350 services are lazy, passive or on-demand)
+----
+
+Assuming you already have an existing GAE application, you can deploy it on CapeDwarf by simply copying the WAR file to +%CAPEDWARF_HOME%/standalone/deployments/ROOT.war+. By naming the war +ROOT.war+, CapeDwarf will deploy the app to the +/+ context path.
+
+
+=== Running in a cluster
+
+Running CapeDwarf in a cluster is not much different to running it in standalone mode. As soon as you run +capedwarf.sh+ or +capedwarf.bat+ on two computers in the same network, CapeDwarf will join both of them in the same cluster, simple as that.
+
+For more information regarding clustering, see the https://docs.jboss.org/author/display/WFLY8/High+Availability+Guide[WildFly 8 High Availability Guide]
+
+
+=== Running two server instances on the same computer
+
+When testing, you may want to run two or more instances on the same computer. There are two things that are needed for this to work:
+
+* each instance must use its own set of TCP/IP ports. This is achieved by using JVM option +-Djboss.socket.binding.port-offset=100+
+* each instance must use its own data and temp dir. This is also achieved through JVM options: +-Djboss.node.name=node2 -Djboss.server.data.dir=${JBOSS_HOME}/standalone/dataB -Djboss.server.temp.dir=${JBOSS_HOME}/standalone/tmpB+
+
+
+
+== Production vs. development
+
+Unlike Google App Engine, where the development server is completely separated from the production environment (Aappspot),
+CapeDwarf is only available in one single form - you always install the same CapeDwarf version/package, regardless of where
+you are installing it to - a production or a development server. In order to distinguish between development and production
+modes, CapeDwarf looks at the +com.google.appengine.runtime.environment+ system property. To run your apps on CapeDwarf in
+development mode, set the system property to +Development+, and to run your app in production mode, set the system property
+to +Production+.
+
+In CapeDwarf, like in Google App Engine, the type of environment (development/production) has an effect on whether datastore
+indexes are auto-generated and whether the User service's login url presents the user with a mock or the real login form.
+
+
+== Configuring custom CapeDwarf stuff (inbound mail, xmpp, ...)
+
+Unlike Google AppSpot which has Google’s while infrastructure at its disposal, CapeDwarf can run on your local server and therefore cannot simply send and receive emails or XMPP messages without a few custom configuration settings.
+
+You configure CapeDwarf through +capedwarf-web.xml+ (in addition to the usual +appengine-web.xml+).
+
+=== Admin Email
+
+The first thing you will need to set up is the admin email.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<capedwarf-web-app>
+    <admin>i.am.an.admin@wherever.com</admin>
+    <admin>i_am_also_an_admin@wherever.com</admin>
+</capedwarf-web-app>
+----
+
+CapeDwarf will use this to determine whether the currently logged in user is the application admin or not.
+
+
+=== Sending e-mail messages
+
+In order to be able to send emails through the Mail Service API, you need to specify properties that will be used by JavaMail when obtaining the mail session.
+
+If you have a GMail account that you would like to use to send emails from your app, you should add the following properties to capedwarf-web.xml:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<capedwarf-web-app>
+    <mail>
+        <property name="mail.transport.protocol">smtp</property>
+        <property name="mail.smtp.auth">true</property>
+        <property name="mail.smtp.starttls.enable">true</property>
+        <property name="mail.smtp.host">smtp.gmail.com</property>
+        <property name="mail.smtp.port">587</property>
+        <property name="mail.smtp.user">app.email@gmail.com</property>
+        <property name="mail.smtp.password">your.password</property>
+    </mail>
+</capedwarf-web-app>
+----
+
+
+=== Receiving e-mail messages
+
+If your application needs to process inbound e-mail messages, you need to set up an IMAP/POP3 account where CapeDwarf will poll for messages and deliver them to your application in the standard GAE way. NOTE: Don’t forget to also enable the inbound mail service in appengine-web.xml.
+
+To poll for messages on your application’s GMail account, add this to capedwarf-web.xml:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<capedwarf-web-app>
+    <inbound-mail>
+        <protocol>imaps</protocol>
+        <host>imap.gmail.com</host>
+        <user>app.email@gmail.com</user>
+        <password>your.password</password>
+        <folder>INBOX</folder>
+        <pollingInterval>10000</pollingInterval>
+    </inbound-mail>
+</capedwarf-web-app>
+----
+
+
+The properties should all be self-explanatory. One thing to note is that CapeDwarf will not delete the messages from IMAP/POP3 account, but will only mark them as read. Also, during startup, it will process all unread messages and deliver them to your application.
+
+
+=== Sending and receiving XMPP messages
+
+CapeDwarf currently includes limited support for sending XMPP messages. It does not support receiving XMPP messages yet. If you would like to be able to send XMPP messages from your application, you need to configure the following XMPP settings in capedwarf-web.xml:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8"?>
+<capedwarf-web-app>
+    <xmpp>
+        <host>talk.l.google.com</host>
+        <port>5222</port>
+        <username>gtalkuser</username>
+        <password>password</password>
+    </xmpp>
+</capedwarf-web-app>
+----
+
+== Compatibility options
+
+CapeDwarf aims to be fully compatible with Google App Engine, but in certain situations, you may wish to explicitly disable certain compatibility features in order to use additional benefits that the WildFly Application Server has to offer. Turning features on or off can come in handy when porting a non-GAE application to GAE or vice-versa.
+
+You can turn compatibility options on or off in three ways:
+
+* through system properties
+* through +capedwarf.conf+ in +%CAPEDWARF_HOME%/bin+
+* through +capedwarf-compatibility.properties+ placed on the class path
+
+
+Here’s a list of all the available options and what they do:
+
+* +disable.entity.groups+
++
+Datastore transactions operate only on entities belonging to the same entity group. By disabling this compatibility option, CapeDwarf allows you to operate on different entity groups in the same transaction.
+
+* +disable.query.inequality.filter.check+
++
+GAE does not allow specifying more than one inequality condition in the filter of a datastore query. By default, CapeDwarf does not allow it also, but you can disable this check through this option.
+
+* +ignore.entity.property.conversion+
++
+GAE stores Integer, Short and Byte entity properties as Long; it also stores Float as Double; it stores empty collections as null. This means entities that are read from the datastore may not have the same property types as the original entity before it was stored in the datastore. In order to be compatible with GAE, CapeDwarf also performs these conversions, but you can disable them with this option.
+
+* +ignore.logging+
++
+As the name itself suggests, enabling this options disables logging completely. Since log lines are stored in the datastore, disabling logging may increase performance when logging is not needed. We disable logging in all of our tests except logging tests.
+
+* +async.logging+
++
+By default, storing of log records is performed synchronously. This means when the log record will definitely already be written to the datastore by the time the log statement completes. By turning on async logging, the records will be written asynchronously.
+
+* +enable.eager.datastore.stats=(sync|async)+
++
+Datastore statistics are turned OFF by default. To turn the stats on, you must specify whether they should be written to the datastore synchronously or asynchronously.
+
+* +enable.globalTimeLimit+
++
+All front-end requests are limited to 60 seconds. You can disable this time limit through this option.
+
+* +disable.blacklist+
++
+GAE only allows you to use JRE classes that are white-listed (see https://developers.google.com/appengine/docs/java/jrewhitelist). By enabling this option, CapeDwarf will allows you to use any JRE class.
+
+* +disable.metadata+
++
+Disable processing and storing of Datastore metadata information (see https://developers.google.com/appengine/docs/java/datastore/metadataqueries). If your application does not need to perform any metadata queries, disabling this may bring some performance improvements.
+
+* +enabled.subsystems+
++
+Specify all the WildFly subsystems that are not enabled by default, but you want them to be enabled..
+
+* +disabled.subsystems+
++
+Specify all the WildFly subsystems that are enabled by default, but you don’t want them to be.
+
+* +force.async.datastore+
++
+Forces async cache mode on infinispan caches used by the datastore implementation.
+
+* +log.to.file+
++
+In certain situations you may wish the log to be written to a file (probably mostly during development or debugging). Even if logging is disabled with ignore.logging, CapeDwarf will still log to a file.
+
+* +enable.socket.options+
++
+GAE does not allow you to set certain socket options. With this option enabled, CapeDwarf does not impose any restrictions on what options you are allowed to set.
+
+* +ignore.capedwarf.sockets+
++
+By default, CapeDwarf’s socket factory wraps all sockets in a CapeDwarfSocket. When this option is enabled, the socket factory returns the original socket instance - it does not wrap it.
+
+* +ignore.capedwarf.url.stream.handler+
++
+CapeDwarf uses its own URLStreamHandler. You can disable this through this option.
+
+* +channel.default.duration.minutes+
++
+Determines how many minutes before the channel expires.
+
+* +default.gcs.bucket.name+
++
+Sets the default Google Cloud Service bucket name. If not set, the default used by CapeDwarf is CAPEDWARF_GCS_BUCKET.
+
+* +disable.websockets.channel+
++
+The Channel API implementation uses WebSockets if the browser supports them and falls back to a XmlHttpRequest implementation if it doesn’t. You can disable the usage of WebSockets through this option. In that case, CapeDwarf will always use the XmlHttpRequest channel implementation.
+
+* +taskqueue.roles+
++
+By default, all requests to Push Task Queue servlets are made with the “admin” role. You can change the roles through this option.
+
+* +enable.all+
++
+Instead of separately enabling all of the above options, you can enable all of them simply with enable.all
+
+
+== Compatibility with the real Google App Engine
+
+It is our aim to be fully compatible with Google App Engine. That is the reason why we started the http://appengine-tck.org[Google App Engine TCK] project together with Google.
+
+
+== Supported APIs and caveats
+
+
+== What to do if you encounter a bug
+
+If you encounter any bugs, please check if you’re using the latest version of CapeDwarf. If you are, please check if there’s a similar bug filed in our Issue tracking System (https://issues.jboss.org/browse/CAPEDWARF). If there isn’t, please file a new issue and if possible, either add a WAR that replicates the problem or, even better, add a new Arquillian test case to either the CapeDwarf project or the AppEngine TCK. Adding a new test is really not as hard as you may think. All you need to do is:
+
+
+== Differences between Google App Engine and CapeDwarf
+
+* no multiple versions
+* ...
+
+

@@ -1,0 +1,56 @@
+= CapeDwarf Frequently Asked Questions
+Marko Lukša
+:awestruct-layout: project
+:awestruct-project: capedwarf
+:toc:
+:toc-placement: preamble
+:page-interpolate: true
+:numbered:
+:latest_stable: #{latest_stable_release(page).version}
+
+
+Here's a list of questions frequently posed by our users.
+
+== I'm getting a NullPointerException in NamespaceManager.get()
+
+CapeDwarf bundles the original appengine-api jar file in +%CAPEDWARF_HOME%/modules/com/google/appengine/main+.
+ Legal restrictions don't allow us to bundle a pre-modified jar with CapeDwarf, which is what CapeDwarf needs in order to work correctly.
+ If you are bundling the jar in your WAR (as is usually the case), CapeDwarf will automatically modify the jar in your WAR.
+ However, if you are *not* including the jar in your WAR, CapeDwarf will automatically use the jar in the modules dir. In order for it
+ to work properly, you must modify the JAR yourself, either by manually running +%CAPEDWARF_HOME%/bin/capedwarf-bytecode.sh+ or +capedwarf-bytecode.bat+;
+ or by running CapeDwarf with +capedwarf.sh+ or +capedwarf.bat+.
+
+If you do not include the appengine jar in your war and you also do not run +capedwarf-bytecode.sh+ and you start CapeDwarf with +standalone.sh+ instead of
++capedwarf.sh+, you will get errors similar to the following:
+
+----
+2014-02-18 15:38:30,561 ERROR [io.undertow.request] (default task-14) UT005023: Exception handling request to /index: java.lang.NullPointerException
+at com.google.appengine.api.NamespaceManager.get(NamespaceManager.java:101) [appengine-api-1.0-sdk-1.8.8.jar:1384479771]
+at com.google.appengine.api.search.SearchServiceImpl.getAppNamespace(SearchServiceImpl.java:121) [appengine-api-1.0-sdk-1.8.8.jar:]
+at com.google.appengine.api.search.SearchServiceImpl.<init>(SearchServiceImpl.java:26) [appengine-api-1.0-sdk-1.8.8.jar:]
+at com.google.appengine.api.search.SearchServiceFactoryImpl.getSearchService(SearchServiceFactoryImpl.java:36) [appengine-api-1.0-sdk-1.8.8.jar:]
+at com.google.appengine.api.search.SearchServiceFactory.getSearchService(SearchServiceFactory.java:52) [appengine-api-1.0-sdk-1.8.8.jar:]
+at com.google.appengine.api.search.SearchServiceFactory.getSearchService(SearchServiceFactory.java:61) [appengine-api-1.0-sdk-1.8.8.jar:]
+at org.jboss.capedwarf.todolist.dao.AbstractDAO.<init>(AbstractDAO.java:41) [classes:]
+at org.jboss.capedwarf.todolist.dao.TasksDAO.<init>(TasksDAO.java:44) [classes:]
+----
+
+The key thing that signals that you are using the original +appengine-sdk.jar+ and not the modified version, is the presence of +SearchServiceImpl+ in the stack trace.
+If the modified jar was being used, the search service implementation class would be +CapedwarfSearchService+. All other service implementations in CapeDwarf also begin
+with +Capedwarf+ and do not end with +Impl+.
+
+
+
+
+== I get a 404 Not Found when I try to access my servlets
+
+Our handling of +static-files+ in +appengine-web.xml+ is not 100% correct. If your +appengine-web.xml+ includes all paths as
+static files, none of your servlets will be available. To work around this, remove the following line from +appengine-web.xml+:
+
+[source,xml]
+----
+<static-files>
+    <include path="**" />
+</static-files>
+----
+

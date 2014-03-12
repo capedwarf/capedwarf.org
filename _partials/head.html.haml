@@ -6,11 +6,14 @@
 
 - pageStyle = page.style ;
 
-- if site.profile.eql?("staging") or site.profile.eql?("production")
-  %link(href="#{pageStyle ? site[pageStyle].bootstrap_css_url : site.bootstrap_css_url}#{site.minified}.css" rel="stylesheet" media="screen")
-- else
-  %link(rel="stylesheet/less" type="text/css" href="#{pageStyle ? site[pageStyle].bootstrap_css_url : site.bootstrap_css_url}#{site.minified}.less")
+/- if site.profile.eql?("staging") or site.profile.eql?("production")
+/  %link(href="#{pageStyle ? site[pageStyle].bootstrap_css_url : site.bootstrap_css_url}#{site.minified}.css" rel="stylesheet" media="screen")
+/- else
+/  %link(rel="stylesheet/less" type="text/css" href="#{pageStyle ? site[pageStyle].bootstrap_css_url : site.bootstrap_css_url}#{site.minified}.less")
 
+/ %link(href="http://static.jboss.org/theme/css/bootstrap-community/2.3.1.1/bootstrap-community.min.css" rel="stylesheet" media="screen")
+%link(href="http://static.jboss.org/wildfly/css/bootstrap-community.min.css" rel="stylesheet" media="screen")
+%link(href="/stylesheets/bootstrap-community-overrides.css" rel="stylesheet" media="screen")
 
 / IE 6-8 support of HTML 5 elements
 /[if lt IE 9]
@@ -27,16 +30,13 @@
 / Defines the project banner. Change these URLs to your specific project folder on static.jboss.org
 :css
   @media (min-width: 980px) {
-    .banner { background-image: url(#{site.project_images_url}/#{site.project}-banner-1180px.png); height: 110px;  }
+    .banner { background-image: url(#{site.project_images_url}/#{site.project}-banner-1180px.png); height: 110px; }
   }
   @media (max-width: 979px) {
-    .banner { background-image: url(#{site.project_images_url}/#{site.project}-logo.png); background-repeat:no-repeat; background-position: center bottom; height: 60px; }
+    .banner { background-image: url(#{site.project_images_url}/#{site.project}-logo.png); background-repeat:no-repeat; height: 60px; }
   }
   @media (max-width: 650px) {
-    .banner { width: 100%; margin: 0px auto; }
-  }
-  @media (max-width: 450px) {
-    .banner { height: 90px; }
+    .banner { width: 200px; margin: 0px auto; }
   }
 
 %script(src="#{site.jborg_js_url}/libs/jquery/jquery-1.9.1#{site.minified}.js")

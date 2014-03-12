@@ -1,0 +1,172 @@
+= First CapeDwarf Release!
+alesj
+2012-12-04
+:revdate: 2012-12-04 15:20:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+
+After a year in the making, I’m finally able to announce first CapeDwarf release!
+
+- http://downloads.jboss.org/capedwarf/CapeDwarf_AS7_1.0.0.Beta1.zip
+
+- https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12318735[JIRA release ref]
+
+== But first, what exactly is CapeDwarf? 
+
+As http://www.jboss.org/capedwarf[our jboss.org page] says, it’s a Google App Engine (GAE) API implemented with JBoss and other open source libraries. Making it possible to run _unmodified_ GAE applications directly in JBoss application server.
+
+The project is split into few sub-projects:
+
+- CapeDwarf Blue - heart of the project aka actual GAE API implementation (https://github.com/capedwarf/capedwarf-blue)
+
+- CapeDwarf JBoss-AS - JBossAS7 extension / subsystem (https://github.com/capedwarf/capedwarf-jboss-as)
+
+- CapeDwarf Testsuite - testing environment (https://github.com/capedwarf/capedwarf-testsuite)
+
+All of the sub-projects are “Mavenized”, and at the moment you also need latest JBossAS upstream binaries in your local Maven repository.
+
+- JBossAS - https://github.com/jbossas/jboss-as/
+
+== How exactly do I try this?
+
+Download http://www.jboss.org/capedwarf/downloads[CapeDwarf zip distribution] and unpack it to your prefered location - JBOSS\_HOME. It contains current JBossAS7 upstream master snapshot binaries, plus CapeDwarf JBossAS7 subsystem and a few extra modules (aka libs or jars).
+
+Now simply go to JBOSS\_HOME/bin/ directory and run the whole thing.
+
+- on OSX ./standalone.sh -c standalone-capedwarf.xml -b your\_ip
+
+- on Linux ./standalone.sh -c standalone-capedwarf.xml
+
+- on Windows standalone.bat -c standalone-capedwarf.xml
+
+Now just drop the app to JBOSS\_HOME/standalone/deployment/ dir and you should already see the app being deployed.
+Or you could use new JBossAS7 Admin Console or CLI to deploy the app - see JBossAS7 docs on how to do this.
+
+[source]
+----
+12:49:21,651 INFO  [org.jboss.as.capedwarf.deployment.CapedwarfInitializationProcessor] (MSC service thread 1-12) Found GAE / CapeDwarf deployment: deployment "capedwarf-tests.war”
+----
+
+== In what “flavors” does it come?
+
+As being modular is the way to go these days, we also provide a way to run GAE apps in fully modular fashion. What does this mean? It means that instead of packing all required GAE jars / libs, you can simply not include them in your app - making the app distribution smaller this way. It is CapeDwarf that will recognize the app being a GAE app - via appengine-web.xml descriptor file, and add appropriate modules / jars to you app’ classpath. But this comes with a small gotcha.
+
+As we need to do some bytecode enhancement to GAE API jar in order to override some services instantiation behavior, while on the other hand you’re not allowed to ship with modified binaries as per license, you will need to run a script to do this bytecode enhancement before running the application server for the first time. The script is located in usual JBossAS bin/, capedwarf-bytecode.sh or capedwarf-bytecode.bin.
+
+Apps that bundle all GAE libs - which is the usual GAE way, do not need to run this script, as the bytecode enhancement will take place during runtime.
+
+== How exactly does CapeDwarf work?
+
+Without going too much into details, let me just mention few main components and how they are roughly implemented.
+
+For most of the stuff, we take JBoss’ http://www.jboss.org/infinispan[Infinispan] and http://www.hibernate.org[Hibernate Search] projects to their limits. We use them for datastore, memcache, search, prospective search, filestore and blobstore. JMS with http://www.jboss.org/hornetq[HornetQ] is used to implement taskqueue.
+
+Where Infinispan is not just plain cache implementation, but a whole data grid with good distributed task framework. Combine that with Hibernate Search and its nice Lucene extensions, you get a powerful clusterable environment to tackle complex problems that GAE API tries to hide from the user, but of course solve it underneath.
+
+== What about admin console?
+
+Yes, we also support admin console for each app.
+While we do lack features, we did try to add some useful functionality to this initial version.
+
+== Do you support JPA / JDO?
+
+JPA / JDO support is exactly the same as in any GAE app. We went an extra mile to support this, providing patches to http://www.datanucleus.org[DataNucleus] project, and taking special care of JPA / JDO deployments in our JBossAS7 CapeDwarf subsystem.
+
+== Does GAE MapReduce lib run on CapeDwarf?
+
+At the moment we have a working test for standalone runtime, where we still have some issues in clustered environment. Hint: the test exists, but fails, and CapeDwarf is open source, wink. 
+
+== Do you test all of this? And how?
+
+We most certainly do. 
+
+We take great pride in trying to test this as much as possible.
+And there is a bunch of interesting things we do to make this happen, trying to squeeze http://www.arquillian.org[Arquillian] as much as possible.
+
+You first need a custom JBossAS \+ CapeDwarf instance.
+You can either enhance / modify an existing JBossAS instance with CapeDwarf-JBoss-AS sub-project or you can use the JBossAS instance from CapeDwarf-Testsuite sub-project.
+Or of course use the custom distribution you just downloaded. 
+
+As expected, each sub-module (a sub-module per GAE API split) in CapeDwarf (Blue) has its own set of tests.
+
+If you already have a running CapeDwarf-JBoss-AS instance, you can run these tests against it with “mvn clean install -Premote”. This uses JBossAS7 Arquillian Remote container to deploy the tests.
+
+CapeDwarf-Testsuite sub-project builds its own JBossAS instance, and then uses JBossAS7 Managed Arquillian container to run the CapeDwarf Blue’ tests.
+
+We have all of this setup as TeamCity builds (thanks JetBrains for the license!),
+so drop me an email if you need to test some CapeDwarf pull-request you just hacked.  
+
+== Scalable or running / testing in a cluster?
+
+Whole CapeDwarf implementation tries to be scalable, as is of course GAE, avoiding a single point of contention. There are of course pieces of code where we know could use better approach. And this is definitely something we’ll do before Final release. Which is also where community help is highly appreciated; to either point out the issues or perhaps even contribute some better implementations to some bottleneck problems.
+
+At the moment we have separate module in Blue which contains cluster tests. There is a README on how to exactly run those tests.
+
+-Pcluster is the Maven profile to enable those tests.
+
+== But how do we know that the tests itself are OK?
+
+Good question.
+
+What we did here is develop an Arquillian container just for GAE.
+
+- https://github.com/alesj/arquillian-container-gae
+
+So what this means is that we can run the _same_ set of tests against real GAE,
+and all of the (non-impl detailed) tests should pass.
+btw: we only have a handful of impl details tests, all others are impl agnostic
+
+So “mvn clean install -Dappengine.sdk.root\=Your GAE SKD location” runs Blue’ tests against your local GAE.
+
+We also support embedded and remote GAE Arquillian container, but these are to be used with care.  Embedded - aka inJVM - is quite hacky, where remote deploys against AppSpot hence it’s a bit slow and less stable to use.
+
+== What about some existing GAE tests?
+
+There aren’t many existing public GAE tests out there.
+The only ones we could find are the ones in GAE DataNucleus (DN) plugin project.
+
+- http://code.google.com/p/datanucleus-appengine/
+
+And there is a nice hack on how to make these tests run against CapeDwarf. 
+
+These GAE DN tests are pure Maven driven JUnit tests, where we need an Arquillian tests to run them against JBossAS instance. What to do? As we’re already bytecode hacking things, it’s obvious what can be done.
+
+We add a custom Maven plugin which knows how to transform classes just after they are compiled:
+
+- https://github.com/alesj/maven-transformer-plugin
+
+And it turns a plain JUnit test into an Arquillian GAE DN test:
+
+- https://github.com/alesj/arquillian-transformer/blob/master/src/main/java/org/jboss/maven/arquillian/transformer/AppEngineDataNucleusTransformer.java
+
+This now makes GAE DN tests run against CapeDwarf instead of default GAE API impl.
+
+btw: we pass all of the non-impl detailed GAE DN tests 
+
+== OpenShift?
+
+A custom CapeDwarf OpenShift cartridge is in the making as we speak, so you should be able to develop GAE apps against OpenShift and CapeDwarf in no time. 
+
+== Wrap-up
+
+CapeDwarf JIRA:
+
+- https://issues.jboss.org/browse/CAPEDWARF
+
+CapeDwarf User forum:
+
+- https://community.jboss.org/en/capedwarf
+
+CapeDwarf IRC:
+
+- #capedwarf on Freenode
+
+Or shoot me an email directly.
+
+Enjoy using CapeDwarf as we enjoy developing it, and do let us know any issues or feedback you might have.
+
+
+
+

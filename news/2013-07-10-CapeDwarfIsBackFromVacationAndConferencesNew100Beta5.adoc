@@ -1,0 +1,53 @@
+= CapeDwarf is back from vacation and conferences -- new 1.0.0.Beta5!
+alesj
+2013-07-10
+:revdate: 2013-07-10 16:33:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+After successful Google I/O and Red Hat Summit presentations, and some vacation, it's finally time to do a new release.
+
+- http://downloads.jboss.org/capedwarf/CapeDwarf_AS7_1.0.0.Beta5.zip[CapeDwarf 1.0.0.Beta5]
+
+Regarding the release issues, they've been mostly driven by TCK failures,
+hence I'll let the release notes speak for themselves.
+
+- https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12321677[Release notes]
+
+Note: for the Windows users, an issue I just discovered after releasing the .zip, and it's unfortunately not as trivial as it looks like, hence I didn't want to stale the release even more.
+So the fix for this is coming in the next release.
+
+- https://issues.jboss.org/browse/CAPEDWARF-186[capedwarf-bytecode.bat is broken]
+
+The simple workaround is to run the full AS start command: "standalone.bat -c standalone-capedwarf.xml".
+(and a bit more work if you wanna use GAE API jar as a module)
+
+== News'n'stuff
+
+Apart from classic coding, it's been busy three months with a lot of news and new things around CapeDwarf project.
+
+== GAE TCK
+
+For those who missed my tweets about GAE TCK, here is the link again
+
+- https://github.com/GoogleCloudPlatform/appengine-tck[GAE TCK]
+
+== Blogs, articles
+
+It looks like we're getting more and more traction on the blog / article scene
+
+- http://googlecloudplatform.blogspot.com/2013/06/google-app-engine-running-in-private-cloud-with-capedrawf.html[Ludo's blog, Google Cloud Platform]
+- http://www.h-online.com/open/news/item/Google-and-Red-Hat-bring-App-Engine-to-JBoss-1894797.html[The H Open]
+- http://www.informationweek.com/cloud-computing/platform/google-enhances-cloud-platform-to-ease-l/240157220[InformationWeek]
+- http://blogs.gartner.com/yefim_natis/2013/07/05/google-and-red-hat-an-intriguing-partnership/[Yefim Natis, Gartner]
+- https://plus.google.com/110401818717224273095/posts/Uoj3pmhbCkH[Peter Magnusson, Google]
+- http://adtmag.com/articles/2013/07/09/capedwarf-partnership.aspx?m=2[ADT]
+
+
+== Conferences, talks
+
+Since JavaOne notifications are out, I can happily say that my _Implementing your own Google App Engine_ talk got accepted.
+And I'll prolong my US stay with http://www.meetup.com/DC-JBug/events/128068042/[my visit to DC JBUG]. Welcome to drop by!
+
+

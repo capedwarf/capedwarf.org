@@ -1,0 +1,28 @@
+= Finally new CapeDwarf release, this time on WildFly!
+alesj
+2013-12-27
+:revdate: 2013-12-27 13:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+Yes, we finally moved the CapeDwarf runtime over to new WildFly codebase! It took time to get all the components aligned, all our provided patches merged and all issues resolved. But it was worth it!
+
+Apart from new runtime with WildFly, we also switched to new Infinispan version 6.x and new UnderTow web server. With new Infinispan version 6.x you get much faster file store impl, while the move to UnderTow allowed us to implement Channel API on top of WebSockets.
+
+The full release notes can be found here:
+
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12322159[2.0.0.Beta1 release notes]
+
+Download the full .zip distribution:
+
+ - http://downloads.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.Beta1.zip[CapeDwarf_WildFly_2.0.0.Beta1.zip]
+
+To name a few new features or resolved issues - we finally have initial OAuth impl, we’re now using original Endpoints resources from GAE for our Endpoints support, https://github.com/luksa[Marko] found and fixed a nasty namespace bug in our Datastore, and we fixed a bunch of small issues exposed by the https://github.com/GoogleCloudPlatform/appengine-tck[GAE TCK].
+
+The old codebase based on JBossAS7 can be found under 1.0 branch in our GitHub repos.
+
+Give this new release a spin. Feedback is welcome as always!
+
+Happy holidays!
+

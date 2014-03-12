@@ -1,0 +1,12 @@
+luksa:
+  name: "Marko Luk&scaron;a"
+  bio: "Marko Luk&scaron;a joined JBoss in February '12 and is currently working on CapeDwarf (JBoss' open-source implementation of the Google App Engine API), the <a href=\"http://github.org/GoogleCloudPlatform/appengine-tck\">Google AppEngine TCK</a> and Weld (the reference implementation of CDI); He has also contributed to Infinispan."
+  location: "Ljubljana, Slovenia"
+  occupation: "Software Engineer"
+  avatar: luksa.jpg
+alesj:
+  name: "Ale&scaron; Justin"
+  bio: "Ale&scaron; Justin was born in Ljubljana, Slovenia and graduated with a degree in mathematics from the University of Ljubljana. He fell in love with Java long ago and has spent most of his time developing information systems, ranging from customer service to energy management. He joined JBoss in 2006 to work full time on the Microcontainer project. He currently leads CapeDwarf project, while still contributing to ApplicationServer, Weld, Ceylon and many other JBoss projects."
+  location: "Vrhnika, Slovenia"
+  occupation: "JBoss CapeDwarf Lead"
+  avatar: alesj.jpg

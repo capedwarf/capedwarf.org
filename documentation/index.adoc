@@ -1,0 +1,34 @@
+= CapeDwarf Documentation
+:awestruct-layout: project
+:awestruct-project: capedwarf
+:page-interpolate: true
+:latest_stable: #{latest_stable_release(page).version}
+
+
+
+== User Documentation
+
+Follow these two guides to setup and configure CapeDwarf.
+
+=== link:/documentation/getting-started/[Getting Started]
+
+This is a three step guide on how to download and install CapeDwarf and run your existing AppEngine applications on it.
+
+=== link:/documentation/user-guide/[User Guide]
+
+Once you have installed CapeDwarf, refer to the link:/documentation/user-guide/[User Guide] for specific instructions on how to
+configure and use CapeDwarf. The information in the User Guide is all you need if you are simply using CapeDwarf to deploy
+your applications on it, and not actually building CapeDwarf from source.
+
+== Developer Documentation
+
+If you are planning on building CapeDwarf from source, please refer to https://github.com/capedwarf/capedwarf-blue/blob/master/README.md[the CapeDwarf GitHub README]
+for instructions.
+
+== Other documentation
+
+Make sure to check the link:/faq/[FAQ].
+You can also find some additional documentation on our https://community.jboss.org/en/capedwarf[community page].
+
+If everything else fails, you can always contact us on #capedwarf on Freenode. See link:/gethelp/[Get Help].
+
