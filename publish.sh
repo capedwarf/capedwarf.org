@@ -19,7 +19,7 @@ EMAIL_FROM="\"CapeDwarf Site Publish Script\" <benevides@redhat.com>"
 JBORG_DIR="capedwarf"
 JBORG_REPO="filemgmt.jboss.org:www_htdocs"
 
-STAGING_URL="capedwarf.org/staging"
+STAGING_URL="stg.capedwarf.org"
 STAGING_DIR="${JBORG_DIR}/staging"
 
 PRODUCTION_DIR="${JBORG_DIR}"
