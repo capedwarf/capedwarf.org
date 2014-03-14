@@ -14,17 +14,17 @@ SANDBOX_CHECKOUT_DIR=$DIR/_tmp/sandbox
 EMAIL_SUBJECT="CapeDwarf site released at \${PRODUCTION_URL}"
 # email To ?
 EMAIL_TO=""
-EMAIL_FROM="\"CapeDwarf Site Publish Script\" <benevides@redhat.com>"
+EMAIL_FROM="\"CapeDwarf Site Publish Script\" <mluksa@redhat.com>"
 
+SSH_USER="capedwarf"
 JBORG_DIR="capedwarf"
-JBORG_REPO="filemgmt.jboss.org:www_htdocs"
+SERVER="filemgmt.jboss.org"
 
-STAGING_URL="capedwarf.org/staging"
-STAGING_DIR="${JBORG_DIR}/staging"
+STAGING_URL="stg.capedwarf.org"
+STAGING_LOCATION="${SSH_USER}@${SERVER}:stg_htdocs/capedwarf"
 
-PRODUCTION_DIR="${JBORG_DIR}"
 PRODUCTION_URL="www.capedwarf.org"
-
+PRODUCTION_LOCATION="${SSH_USER}@${SERVER}:www_htdocs/capedwarf"
 
 notify_email()
 {
@@ -85,7 +85,7 @@ production() {
   awestruct -Pproduction
 
   echo "\n**** Publishing site to http://${PRODUCTION_URL} ****"
-  rsync -Pqr --protocol=28 --delete-after --exclude=presentations $DIR/_site/* ${JBORG_DIR}@${JBORG_REPO}/${PRODUCTION_DIR}
+  rsync -Pqr --protocol=28 --delete-after --exclude=presentations $DIR/_site/* ${PRODUCTION_LOCATION}
 
   shallow_clean
   
@@ -102,7 +102,7 @@ staging() {
   awestruct -Pstaging
 
   echo "**** Publishing site to http://${STAGING_URL} ****"
-  rsync -Pqr --protocol=28 --delete-after --exclude=presentations $DIR/_site/* ${JBORG_DIR}@${JBORG_REPO}/${STAGING_DIR}
+  rsync -Pqr --protocol=28 --delete-after --exclude=presentations $DIR/_site/* ${STAGING_LOCATION}
 
   shallow_clean
 }
@@ -111,7 +111,7 @@ clear_staging() {
   echo "**** Removing staging site from http://${STAGING_URL}"
   rm -rf _site
   mkdir _site
-  rsync -Pqr --protocol=28 --delete $DIR/_site/ ${JBORG_DIR}@${JBORG_REPO}/${STAGING_DIR}
+  rsync -Pqr --protocol=28 --delete $DIR/_site/ ${STAGING_LOCATION}
 }
 
 

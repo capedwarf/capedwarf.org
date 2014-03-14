@@ -36,7 +36,7 @@ To stage the site:
 
     ./publish.sh -s
 
-The site is staged to <http://www.capedwarf.org/staging>.
+The site is staged to <http://stg.capedwarf.org>.
 
 To push the site live:
 
