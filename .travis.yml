@@ -1,0 +1,23 @@
+before_script:
+  - echo -e "Host *\n\tStrictHostKeyChecking no" >> ~/.ssh/config
+  - if [ $TRAVIS_PULL_REQUEST = "false" ]; then
+  - openssl aes-256-cbc -k "$password" -in _capedwarfKey.enc -d -a -out _capedwarfKey
+  - eval $(ssh-agent)
+  - ssh-add -D
+  - chmod 600 _capedwarfKey
+  - ssh-add ./_capedwarfKey
+  - fi
+language: ruby
+rvm:
+  - 1.9.3
+branches:
+  only:
+    - production
+    - master
+script: rake travis
+env:
+  global:
+    - master_deploy_url: capedwarf@filemgmt.jboss.org:/stg_htdocs/capedwarf/
+    - production_deploy_url: capedwarf@filemgmt.jboss.org:/www_htdocs/capedwarf/
+    # Key password
+    - secure: "bnn0fqIlAt9Uhk4r6yPQW+tXBanslzbz3r3UDdMqgsu1ClCtrLorKnt81RCSBUBQg/9k1zuS6swdJhe+JkEjInRuwaKKzQyWK/o1be/EBjtIrbFQhCobOmaF8J+RE24SpJt576hOW2EdJ7oyoDMGKeAXQZrXPxYdRY+wTdmplwY="
