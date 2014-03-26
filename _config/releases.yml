@@ -1,7 +1,7 @@
 - version: '2.0.0.CR1'
   description: 'CapeDwarf WildFly complete bundle'
   date: '2014-03-26'
-  notes: 'http://www.capedwarf.org/news/2014/03/10/YouveGotMailAndANewSite/'
+  notes: 'http://www.capedwarf.org/news/2014/03/26/YouveGotMailAndANewSite/'
   filename: 'CapeDwarf_WildFly_2.0.0.CR1'
 - version: '2.0.0.Beta1'
   description: 'CapeDwarf WildFly complete bundle'
