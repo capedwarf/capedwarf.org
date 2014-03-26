@@ -8,6 +8,7 @@ stylesheets/_config-variables.less
 *.DS_Store
 
 ## IDE
+.idea
 .settings
 .project
 .buildpath
