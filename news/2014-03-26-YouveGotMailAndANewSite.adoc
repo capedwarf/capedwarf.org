@@ -1,7 +1,7 @@
 = You’ve got mail and a new site!
 alesj
-2014-03-10
-:revdate: 2014-03-10 13:04:00 +0100
+2014-03-26
+:revdate: 2014-03-26 13:04:00 +0100
 :awestruct-tags: [announcement, release]
 :awestruct-layout: news
 :source-highlighter: coderay
