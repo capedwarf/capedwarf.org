@@ -14,9 +14,11 @@ When implementing something like cron support in Java, it’s probably the only 
 Of course there are some tricks to consider, specially around clustering support and GAE cron’s natural way of describing trigger times. But that’s where JGroups and existing GAE Tools come in handy.
 
 So, here is the latest CapeDwarf 2.0.0.CR2 distribution:
+
  - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR2.zip[CapeDwarf_WildFly_2.0.0.CR2.zip]
 
 And the usual issues report:
+
  - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12324465[2.0.0.CR2 release notes]
 
 Give it a spin and any feedback welcome as always!
