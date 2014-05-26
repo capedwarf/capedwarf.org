@@ -1,3 +1,8 @@
+- version: '2.0.0.CR2'
+  description: 'CapeDwarf WildFly complete bundle'
+  date: '2014-05-26'
+  notes: 'http://www.capedwarf.org/news/2014/05/26/CapeDwarfGetsCronSupport/'
+  filename: 'CapeDwarf_WildFly_2.0.0.CR2'
 - version: '2.0.0.CR1'
   description: 'CapeDwarf WildFly complete bundle'
   date: '2014-03-26'

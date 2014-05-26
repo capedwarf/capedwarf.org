@@ -1,0 +1,22 @@
+= CapeDwarf (finally) gets cron support!
+alesj
+2014-05-26
+:revdate: 2014-05-26 13:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+I’m actually surprised on how I was able to miss the cron support for so long, or how come none of the users complained. :-)
+
+It finally caught my attention when I needed it in one of my sandbox apps, that I realised that we have completely forgotten about it -- though it’s been around forever.
+
+When implementing something like cron support in Java, it’s probably the only logical choice to use Quartz. And that’s what we’ve done.
+Of course there are some tricks to consider, specially around clustering support and GAE cron’s natural way of describing trigger times. But that’s where JGroups and existing GAE Tools come in handy.
+
+So, here is the latest CapeDwarf 2.0.0.CR2 distribution:
+ - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR2.zip[CapeDwarf_WildFly_2.0.0.CR2.zip]
+
+And the usual issues report:
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12324465[2.0.0.CR2 release notes]
+
+Give it a spin and any feedback welcome as always!
