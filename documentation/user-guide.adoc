@@ -31,13 +31,14 @@ You can deploy your apps in either compressed war files or in exploded war direc
 directory, the directory name must include a +.war+ extension and you must add a +myapp.war.dodeploy' file, where +myapp.war+
 matches the name of the directory your app is located in.
 
-* *Running +standalone.sh -c capedwarf-standalone.conf+*
+* *Running +standalone.sh -c standalone-capedwarf-modules.xml+*
 +
 This is basically the same as running +capedwarf.sh+, but with one _significant caveat_. See <<faq/bytecode>> for details.
+It also includes simple App Engine modules support.
 
-* *Running +standalone.sh -c capedwarf-standalone-modules.conf+*
+* *Running +standalone.sh -c standalone-capedwarf.xml+*
 +
-This runs CapeDwarf with App Engine modules support enabled.
+This runs CapeDwarf w/o App Engine modules support enabled.
 
 
 CapeDwarf can be run on a single node or on many nodes in a cluster.
@@ -278,7 +279,7 @@ It is our aim to be fully compatible with Google App Engine. That is the reason 
 
 == What to do if you encounter a bug
 
-If you encounter any bugs, please check if you’re using the latest version of CapeDwarf. If you are, please check if there’s a similar bug filed in our Issue tracking System (https://issues.jboss.org/browse/CAPEDWARF). If there isn’t, please file a new issue and if possible, either add a WAR that replicates the problem or, even better, add a new Arquillian test case to either the CapeDwarf project or the AppEngine TCK. Adding a new test is really not as hard as you may think. All you need to do is:
+If you encounter any bugs, please check if you’re using the latest version of CapeDwarf. If you are, please check if there’s a similar bug filed in our Issue tracking System (https://issues.jboss.org/browse/CAPEDWARF). If there isn’t, please file a new issue and if possible, either add a WAR that replicates the problem or, even better, add a new Arquillian test case to either the CapeDwarf project or the AppEngine TCK. Adding a new test is really not as hard as you may think. All you need to do is: https://github.com/GoogleCloudPlatform/appengine-tck/blob/master/how_to_submit_tests.md[Adding GAE TCK test]
 
 
 == Differences between Google App Engine and CapeDwarf
