@@ -1,12 +1,6 @@
 before_script:
   - echo -e "Host *\n\tStrictHostKeyChecking no" >> ~/.ssh/config
-  - if [ $TRAVIS_PULL_REQUEST = "false" ]; then
-  - openssl aes-256-cbc -k "$password" -in _capedwarfKey.enc -d -a -out _capedwarfKey
-  - eval $(ssh-agent)
-  - ssh-add -D
-  - chmod 600 _capedwarfKey
-  - ssh-add ./_capedwarfKey
-  - fi
+  - if [ $TRAVIS_PULL_REQUEST = "false" ]; then ./before.sh fi
 language: ruby
 rvm:
   - 1.9.3
