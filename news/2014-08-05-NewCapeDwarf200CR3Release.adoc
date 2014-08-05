@@ -1,0 +1,20 @@
+= New CapeDwarf 2.0.0.CR3, with few small tweaks
+alesj
+2014-08-05
+:revdate: 2014-08-05 12:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+With World Cup and summer vacation finally behind us, it’s time to do a new CapeDwarf release.
+This time it only includes a few minor fixes, and of course a GAE version update.
+
+Download is here:
+
+ - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR3.zip
+
+And the few release notes:
+
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12325061
+
+Give it a spin, and feedback welcome as always!

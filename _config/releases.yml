@@ -1,3 +1,8 @@
+- version: '2.0.0.CR3'
+  description: 'CapeDwarf WildFly complete bundle'
+  date: '2014-08-05'
+  notes: 'http://www.capedwarf.org/news/2014/08/05/NewCapeDwarf200CR3Release/'
+  filename: 'CapeDwarf_WildFly_2.0.0.CR3'
 - version: '2.0.0.CR2'
   description: 'CapeDwarf WildFly complete bundle'
   date: '2014-05-26'
