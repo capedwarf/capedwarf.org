@@ -1,6 +1,6 @@
 before_script:
   - echo -e "Host *\n\tStrictHostKeyChecking no" >> ~/.ssh/config
-  - if [ $TRAVIS_PULL_REQUEST = "false" ]; then ./before.sh fi
+  - if [ $TRAVIS_PULL_REQUEST = "false" ]; then ./before.sh; fi
 language: ruby
 rvm:
   - 1.9.3
