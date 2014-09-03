@@ -264,6 +264,10 @@ The Channel API implementation uses WebSockets if the browser supports them and 
 +
 By default, all requests to Push Task Queue servlets are made with the “admin” role. You can change the roles through this option.
 
+* +force.standalone.tx.tracker+
++
+Force in-memory transaction tracking, instead of global/clustered tracking. This should optimize things a bit, but it can only be used standalone.
+
 * +enable.all+
 +
 Instead of separately enabling all of the above options, you can enable all of them simply with enable.all
