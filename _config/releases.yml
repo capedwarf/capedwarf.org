@@ -1,3 +1,8 @@
+- version: '2.0.0.CR4'
+  description: 'CapeDwarf WildFly complete bundle'
+  date: '2014-09-23'
+  notes: 'http://www.capedwarf.org/news/2014/09/23/ConcurrentTransactions/'
+  filename: 'CapeDwarf_WildFly_2.0.0.CR4'
 - version: '2.0.0.CR3'
   description: 'CapeDwarf WildFly complete bundle'
   date: '2014-08-05'

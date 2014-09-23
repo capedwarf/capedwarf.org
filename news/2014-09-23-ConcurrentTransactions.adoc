@@ -1,0 +1,26 @@
+= Concurrent transactions, their tests and fixes
+alesj
+2014-09-23
+:revdate: 2014-09-23 12:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+While playing with some Endpoints GAE example app, I noticed our non-XG transactions weren’t following the concurrent threads limits -- only one transaction per entity group allowed. This quickly shows how you easily miss things when you don’t have proper tests.
+
+In our case setting this concurrency contention is not as easy as it sounds. But … luckily at JBoss we have a tool called Byteman, which is exactly what we’re looking for (and it even came from initially testing concurrency on transactions).
+
+And, as I expected from Aslak, Arquillian already had Byteman support integrated. OK, to be honest, it did need some minor changes to make it work as expected. :-)
+
+Here is the latest download:
+
+ - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR4.zip
+
+The release notes:
+
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12324925
+
+And the mentioned GAE TCK concurrent transactions tests:
+ - https://github.com/GoogleCloudPlatform/appengine-tck/tree/master/core/byteman/src/test/java/com/google/appengine/tck/byteman
+
+Feedback welcome as always!
