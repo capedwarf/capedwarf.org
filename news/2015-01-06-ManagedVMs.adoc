@@ -1,4 +1,4 @@
-= Managed VMs, warmup request and HTTP session handling
+= Managed VMs, warmup request, HTTP session handling and WildFly 8.2.0.Final
 alesj
 2015-01-06
 :revdate: 2015-01-06 12:04:00 +0100
@@ -12,6 +12,8 @@ And voila, a new https://github.com/capedwarf/capedwarf-managed[CapeDwarf Manage
 
 But in order to not duplicate the code between Managed and Blue, some refactoring was required, hence the delay.
 And along the way - while implementing Managed - we saw we were also missing a few things in Blue as well: warmup request and GAE-like HTTP session handling.
+
+Also, we moved to WildFly 8.2.0.Final.
 
 To cut the long story short, here is the latest Blue download:
 
