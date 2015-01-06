@@ -289,6 +289,7 @@ If you encounter any bugs, please check if you’re using the latest version of 
 == Differences between Google App Engine and CapeDwarf
 
 * no multiple versions
+* different http session handling; enabled (GAE-like), disabled (Stub), none / default (WildFly's default)
 * ...
 
 
