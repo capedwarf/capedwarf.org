@@ -1,3 +1,8 @@
+- version: '2.0.0.CR5'
+  description: 'CapeDwarf WildFly complete bundle'
+  date: '2015-01-06'
+  notes: 'http://www.capedwarf.org/news/2015/01/06/ManagedVMs/'
+  filename: 'CapeDwarf_WildFly_2.0.0.CR5'
 - version: '2.0.0.CR4'
   description: 'CapeDwarf WildFly complete bundle'
   date: '2014-09-23'

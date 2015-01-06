@@ -1,0 +1,26 @@
+= Managed VMs, warmup request and HTTP session handling
+alesj
+2015-01-06
+:revdate: 2015-01-06 12:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+It's been a while since our last release. But that doesn't mean we haven't been busy.
+With Google App Engine's ManagedVMs getting more and more traction, we figured out we needed to support that too.
+And voila, a new https://github.com/capedwarf/capedwarf-managed[CapeDwarf Managed] project was created.
+
+But in order to not duplicate the code between Managed and Blue, some refactoring was required, hence the delay.
+And along the way - while implementing Managed - we saw we were also missing a few things in Blue as well: warmup request and GAE-like HTTP session handling.
+
+To cut the long story short, here is the latest Blue download:
+
+ - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR5.zip
+
+And the release notes:
+
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12325795
+
+More about Managed in the future blog post -- asap!
+
+Feedback welcome as always!
