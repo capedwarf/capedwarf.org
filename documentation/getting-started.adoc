@@ -37,7 +37,7 @@ you run the app on CapeDwarf with the following command:
 CapeDwarf should start up and print a bunch of lines to the console. The last line should look something like this:
 
 ----
-13:50:38,085 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss Capedwarf 2.0.0.Beta1 (WildFly 8.0.0.Final) started in 3885ms - Started 213 of 525 services (350 services are lazy, passive or on-demand)
+14:46:19,930 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: JBoss Capedwarf 2.0.0.CR5 (WildFly 8.2.0.Final) started in 2875ms - Started 228 of 429 services (249 services are lazy, passive or on-demand)
 ----
 
 
