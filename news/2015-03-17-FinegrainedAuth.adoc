@@ -9,6 +9,10 @@ alesj
 There was a small bug on how we handled security constraints -- it should re-direct you to login page in case of non-authorized access.
 This is now fixed. While we also added fine-grained configuration of authorization mechanism, and moved default to GAE/CapeDwarf mechanism.
 
+I've also created new Docker image, with this release, under "alesj/capedwarf".
+
+ - https://github.com/capedwarf/capedwarf-testsuite/blob/master/docker/Dockerfile
+
 Download latest release:
 
  - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.CR6.zip
