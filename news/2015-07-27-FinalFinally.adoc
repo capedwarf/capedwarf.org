@@ -1,0 +1,19 @@
+= Finally 2.0.0.Final version / release
+alesj
+2015-07-27
+:revdate: 2015-07-27 12:04:00 +0100
+:awestruct-tags: [announcement, release]
+:awestruct-layout: news
+:source-highlighter: coderay
+
+With no reported major issues with our CR releases, I finally tagged and released 2.0.0.Final.
+
+Download it here:
+
+ - http://download.jboss.org/capedwarf/CapeDwarf_WildFly_2.0.0.Final.zip
+
+And the notes:
+
+ - https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12311321&version=12326875
+
+Feedback welcome as always!
